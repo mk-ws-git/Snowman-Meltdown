@@ -53,7 +53,15 @@ def play_game():
             print("The secret word was:", secret_word)
             break
 
-        guess = input("Guess a letter: ").lower()
+        guess = input("Guess a letter: ").lower().strip()
+
+        if len(guess) != 1 or not guess.isalpha():
+            print("Please enter a single letter (a-z).")
+            continue
+        
+        if guess in guessed_letters:
+            print("You already guessed that letter. Try again."
+            continue 
 
         if guess in secret_word:
             if guess not in guessed_letters:
