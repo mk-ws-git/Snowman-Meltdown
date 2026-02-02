@@ -29,36 +29,35 @@ def play_game():
     secret_word = get_random_word()
     guessed_letters = []
     mistakes = 0
+    max_mistakes = len(STAGES) - 1
 
     print("Welcome to Snowman Meltdown!")
 
-    max_mistakes = len(STAGES) - 1
-
     while True:
-        # Display current game state
         display_game_state(mistakes, secret_word, guessed_letters)
 
-        # End game if word fully guessed
+        # Check win condition
         word_guessed = True
         for letter in secret_word:
             if letter not in guessed_letters:
                 word_guessed = False
                 break
+
         if word_guessed:
             print("You saved the snowman!")
             break
 
-        # End game if mistake limit reached
+        # Check lose condition
         if mistakes >= max_mistakes:
             print("The snowman melted!")
+            print("The secret word was:", secret_word)
             break
 
-        # Prompt user for a guess
         guess = input("Guess a letter: ").lower()
 
-        # Handle guesses: update guessed letters
-        guessed_letters.append(guess)
+        if guess in secret_word:
+            if guess not in guessed_letters:
+                guessed_letters.append(guess)
 
-        # Increment mistakes if guess is wrong
-        if guess not in secret_word:
+        else:
             mistakes += 1
