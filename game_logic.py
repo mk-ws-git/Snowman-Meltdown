@@ -39,6 +39,16 @@ def display_game_state(mistakes, secret_word, guessed_letters, wrong_letters):
     print("=" * 30)
     print()
 
+def ask_replay():
+    while True:
+        answer = input("Play again? (y/n): ").lower().strip()
+        if answer in ("y", "yes"):
+            return True
+        if answer in ("n", "no"):
+            return False
+        print("Please enter y or n.")
+
+
 def play_game():
     secret_word = get_random_word()
     guessed_letters = []
@@ -85,6 +95,14 @@ def play_game():
 
         if guess in secret_word:
             guessed_letters.append(guess)
+        
         else:
             wrong_letters.append(guess)
             mistakes += 1
+
+    if ask_replay():         
+        play_game()
+    else:
+        return
+
+	
